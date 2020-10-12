@@ -2,8 +2,25 @@ div.jumbotron {
   text-align: center;
   color: white;
   background-color: #29648A;
-  /*background-color: #25274D;*/
+  /*background-color:  #25274D;*/
   /*background-color: #464866;*/
+}
+
+svg {
+  margin-right: 5px;
+}
+
+.btn.btn-primary {
+  margin: 0 10px;
+  background-color: #AAABB8;
+  color: white;
+  border: 0;
+}
+
+.btn.btn-primary:hover {
+  margin: 0 10px;
+  background-color: #464866;
+  color: white;
 }
 
 .App {
