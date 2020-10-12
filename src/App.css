@@ -1,5 +1,15 @@
+div.jumbotron {
+  text-align: center;
+  color: white;
+  background-color: #29648A;
+  /*background-color: #25274D;*/
+  /*background-color: #464866;*/
+}
+
 .App {
   text-align: center;
+  background-color: #2E9CCA;
+  height: 1000px;
 }
 
 .App-logo {
