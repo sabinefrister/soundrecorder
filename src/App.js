@@ -69,4 +69,7 @@ export default App;
 
 // Todo: 
 // - Toggle Mute/Apply Mute
-// - Clean Up console.logs
+// - Add Download function
+// - Add UI to Recorder
+// - Add Styling
+// - Add Upload function to Dropbox

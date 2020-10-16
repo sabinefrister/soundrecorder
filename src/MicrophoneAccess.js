@@ -41,7 +41,4 @@ class MicrophoneAccess extends Component {
   }
 }
 
-// streamavailale
-// {this.state.audio ? <Recorder stream={this.state.audio} /> : console.log("nothing")}
-
 export default MicrophoneAccess;

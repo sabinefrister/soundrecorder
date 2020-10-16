@@ -32,25 +32,16 @@ class Recorder extends Component {
 		// setting up recorded audio snippets
 		var chunks = [];
 		this.mediaRecorder.onstop = function(event) {
-			console.log("onstop")
-			console.log("mediaRecorder: " + this.mediaRecorder);
-    	console.log(this.state);
 
-    	var blob = new Blob(chunks, {'type' : 'audio/wave'});
-    	chunks = [];
-    	var audioURL = URL.createObjectURL(blob);
-    	this.props.getRecordedAudioURL(audioURL);
-    	console.log(this.state);
-		}.bind(this);
+  	var blob = new Blob(chunks, {'type' : 'audio/wave'});
+  	chunks = [];
+  	var audioURL = URL.createObjectURL(blob);
+  	this.props.getRecordedAudioURL(audioURL);
+	}.bind(this);
 
 		this.mediaRecorder.ondataavailable = function(event) {
-			console.log("ondataavailable")
-			console.log("mediaRecorder: " + this.mediaRecorder);
 			chunks.push(event.data);
-			console.log("chunks" + chunks);
-			console.log("eventdata" + event.data);
 		}
-    // dataArray???
   }
 
   componentWillUnmount() {
@@ -59,19 +50,13 @@ class Recorder extends Component {
 
   recordAudio() {
   	this.mediaRecorder.start();
-		console.log(this.mediaRecorder.state);
-  	console.log("record started")
   }
 
   stopRecording() {
   	this.mediaRecorder.stop();
-		console.log(this.mediaRecorder.state);
-  	console.log("record stopped")
   }  
 
   playRecording() {
-		console.log(this.mediaRecorder);
-  	console.log("play")
   }
 
   // toggleMute() {
