@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
+import AudioPlayer from './AudioPlayer';
+
 
 class Recorder extends Component {
   constructor(props) {
     super(props);
 		this.state = { 
-			audioData: new Uint16Array(0),
+			// audioData: new Uint16Array(0),
+			recordStopped: false,
+			audioURL: null,
 			// mute: null
 		};
 
 		this.recordAudio = this.recordAudio.bind(this);
 		this.stopRecording = this.stopRecording.bind(this);
+		this.playRecording = this.playRecording.bind(this);
 		// this.toggleMute = this.toggleMute.bind(this);
   }
 
@@ -28,10 +33,32 @@ class Recorder extends Component {
 
 		// Creating a mediaRecorder
 		this.mediaRecorder = new MediaRecorder(this.props.stream);
+		// setting up recorded audio snippets
+		var chunks = [];
+		this.mediaRecorder.onstop = function(event) {
+			console.log("onstop")
+			console.log("mediaRecorder: " + this.mediaRecorder);
+    	console.log(this.state);
+
+    	var blob = new Blob(chunks, {'type' : 'audio/wave'});
+    	chunks = [];
+    	var audioURL = URL.createObjectURL(blob);
+    	this.setState({recordStopped: true});
+    	this.setState({audioURL: audioURL});
+    	console.log(this.state);
+		}.bind(this);
+
+		this.mediaRecorder.ondataavailable = function(event) {
+			console.log("ondataavailable")
+			console.log("mediaRecorder: " + this.mediaRecorder);
+			chunks.push(event.data);
+			console.log("chunks" + chunks);
+			console.log("eventdata" + event.data);
+		}
     // dataArray???
   }
 
-   componentWillUnmount() {
+  componentWillUnmount() {
     this.source.disconnect();
   }
 
@@ -45,6 +72,11 @@ class Recorder extends Component {
   	this.mediaRecorder.stop();
 		console.log(this.mediaRecorder.state);
   	console.log("record stopped")
+  }  
+
+  playRecording() {
+		console.log(this.mediaRecorder);
+  	console.log("play")
   }
 
   // toggleMute() {
@@ -61,8 +93,12 @@ class Recorder extends Component {
 				<div>
 					<Button id="record" onClick={this.recordAudio}>Record</Button>
 					<Button id="stop" onClick={this.stopRecording}>Stop</Button>
+					<Button id="play" onClick={this.playRecording}>Play</Button>
 					<Button id="mute"onClick={this.toggleMute}>Mute</Button>
 				</div>
+				{this.state.recordStopped &&
+					<AudioPlayer audioURL={this.state.audioURL} />
+				}
       </React.Fragment>
     );
   }
