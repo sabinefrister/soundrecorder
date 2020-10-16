@@ -7,6 +7,7 @@ import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import MicrophoneAccess from './MicrophoneAccess';
 import Recorder from './Recorder';
+import AudioPlayer from './AudioPlayer';
 
 
 class App extends Component {
@@ -15,8 +16,10 @@ class App extends Component {
 		this.state = {
 			data: null,
 			stream: null,
+			audioURL: null
 		};
 		this.getStreamData = this.getStreamData.bind(this);
+		this.getRecordedAudioURL = this.getRecordedAudioURL.bind(this);
 	}
   
 	// callback function for getting the stream of MicrophoneAccess component
@@ -24,7 +27,9 @@ class App extends Component {
 		this.setState({stream: streamData})
 	} 
 	// callback function for getting the audioURL of Recorder component
-
+	getRecordedAudioURL(audioURL) {
+		this.setState({audioURL: audioURL})
+	}
 
   render() {
   	// console.log("render App" + this.state.audio)
@@ -40,7 +45,9 @@ class App extends Component {
 				<Container>
 						<h2>Recorder</h2>
 						<MicrophoneAccess getStreamData={this.getStreamData}/>
-						{this.state.stream && <Recorder stream={this.state.stream} /> }
+						{this.state.stream && <Recorder stream={this.state.stream} 
+																						getRecordedAudioURL={this.getRecordedAudioURL}/> }
+						{this.state.audioURL && <AudioPlayer audioURL={this.state.audioURL} /> }
 						<h4><FontAwesomeIcon icon={faMicrophone} />Record your voice</h4>
 				</Container>
 	    </div>
@@ -49,3 +56,8 @@ class App extends Component {
 };
 
 export default App;
+
+// Todo: 
+// - Change condition in MicrophoneAccess
+// - Toggle Mute/Apply Mute
+// - Clean Up console.logs

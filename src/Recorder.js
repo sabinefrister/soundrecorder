@@ -6,12 +6,7 @@ import AudioPlayer from './AudioPlayer';
 class Recorder extends Component {
   constructor(props) {
     super(props);
-		this.state = { 
-			// audioData: new Uint16Array(0),
-			recordStopped: false,
-			audioURL: null,
-			// mute: null
-		};
+		this.state = {};
 
 		this.recordAudio = this.recordAudio.bind(this);
 		this.stopRecording = this.stopRecording.bind(this);
@@ -23,6 +18,7 @@ class Recorder extends Component {
     this.audioContext = new (window.AudioContext ||
       window.webkitAudioContext)();
     this.source = this.audioContext.createMediaStreamSource(this.props.stream);
+    
     // Connect different audio modules/audio graph nodes together
     // Setting up gain
 		this.gainNode = this.audioContext.createGain();
@@ -43,8 +39,7 @@ class Recorder extends Component {
     	var blob = new Blob(chunks, {'type' : 'audio/wave'});
     	chunks = [];
     	var audioURL = URL.createObjectURL(blob);
-    	this.setState({recordStopped: true});
-    	this.setState({audioURL: audioURL});
+    	this.props.getRecordedAudioURL(audioURL);
     	console.log(this.state);
 		}.bind(this);
 
@@ -96,9 +91,6 @@ class Recorder extends Component {
 					<Button id="play" onClick={this.playRecording}>Play</Button>
 					<Button id="mute"onClick={this.toggleMute}>Mute</Button>
 				</div>
-				{this.state.recordStopped &&
-					<AudioPlayer audioURL={this.state.audioURL} />
-				}
       </React.Fragment>
     );
   }
