@@ -9,14 +9,14 @@ class MicrophoneAccess extends Component {
       audio: null
     };
     this.toggleMicrophone = this.toggleMicrophone.bind(this);
-  }
+    }
 
   async getMicrophone() {
     const audio = await navigator.mediaDevices.getUserMedia({
       audio: true,
       video: false
     });
-    this.setState({ audio });
+    this.props.getStreamData(audio)
   }
 
   stopMicrophone() {
@@ -36,12 +36,14 @@ class MicrophoneAccess extends Component {
     return (
       <React.Fragment>
           <Button onClick={this.toggleMicrophone}>
-            {this.state.audio ? 'Stop microphone input' : 'Allow microphone input'}
+            {this.state.audio ? 'Stop microphone input' : 'Allow microphone input'} 
           </Button>
-        {this.state.audio ? <Recorder stream={this.state.audio} /> : console.log("nothing")}
       </React.Fragment>
     );
   }
 }
+
+// streamavailale
+// {this.state.audio ? <Recorder stream={this.state.audio} /> : console.log("nothing")}
 
 export default MicrophoneAccess;
