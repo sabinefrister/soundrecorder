@@ -16,23 +16,29 @@ class App extends Component {
 		this.state = {
 			data: null,
 			stream: null,
-			audioURL: null
+			audioURL: null,
+			streamAvailable: null,
 		};
 		this.getStreamData = this.getStreamData.bind(this);
 		this.getRecordedAudioURL = this.getRecordedAudioURL.bind(this);
+		this.stopMicrophoneAccess = this.stopMicrophoneAccess.bind(this);
 	}
   
 	// callback function for getting the stream of MicrophoneAccess component
 	getStreamData(streamData) {
 		this.setState({stream: streamData})
+		this.setState({streamAvailable: true})
 	} 
 	// callback function for getting the audioURL of Recorder component
 	getRecordedAudioURL(audioURL) {
 		this.setState({audioURL: audioURL})
 	}
 
+	stopMicrophoneAccess() {
+		this.setState({streamAvailable: null})
+	}
+
   render() {
-  	// console.log("render App" + this.state.audio)
   	return (
   		<div className="App">
 				<Jumbotron> 
@@ -44,8 +50,12 @@ class App extends Component {
 				</Jumbotron>
 				<Container>
 						<h2>Recorder</h2>
-						<MicrophoneAccess getStreamData={this.getStreamData}/>
-						{this.state.stream && <Recorder stream={this.state.stream} 
+						<MicrophoneAccess getStreamData={this.getStreamData} 
+															stopMicrophoneAccess={this.stopMicrophoneAccess}
+															streamAvailable={this.state.streamAvailable}
+															stream={this.state.stream} 
+						/>
+						{this.state.streamAvailable && <Recorder stream={this.state.stream} 
 																						getRecordedAudioURL={this.getRecordedAudioURL}/> }
 						{this.state.audioURL && <AudioPlayer audioURL={this.state.audioURL} /> }
 						<h4><FontAwesomeIcon icon={faMicrophone} />Record your voice</h4>
@@ -58,6 +68,5 @@ class App extends Component {
 export default App;
 
 // Todo: 
-// - Change condition in MicrophoneAccess
 // - Toggle Mute/Apply Mute
 // - Clean Up console.logs

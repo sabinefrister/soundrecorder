@@ -5,27 +5,25 @@ import Recorder from './Recorder';
 class MicrophoneAccess extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      audio: null
-    };
+    this.state = {};
     this.toggleMicrophone = this.toggleMicrophone.bind(this);
     }
 
   async getMicrophone() {
-    const audio = await navigator.mediaDevices.getUserMedia({
+    const stream = await navigator.mediaDevices.getUserMedia({
       audio: true,
       video: false
     });
-    this.props.getStreamData(audio)
+    this.props.getStreamData(stream)
   }
 
   stopMicrophone() {
-    this.state.audio.getTracks().forEach(track => track.stop());
-    this.setState({ audio: null });
+    this.props.stream.getTracks().forEach(track => track.stop());
+    this.props.stopMicrophoneAccess()
   }
 
   toggleMicrophone() {
-    if (this.state.audio) {
+    if (this.props.streamAvailable) {
       this.stopMicrophone();
     } else {
       this.getMicrophone();
@@ -36,7 +34,7 @@ class MicrophoneAccess extends Component {
     return (
       <React.Fragment>
           <Button onClick={this.toggleMicrophone}>
-            {this.state.audio ? 'Stop microphone input' : 'Allow microphone input'} 
+            {this.props.streamAvailable ? 'Stop microphone input' : 'Allow microphone input'} 
           </Button>
       </React.Fragment>
     );
