@@ -5,12 +5,12 @@ class Download extends Component {
   constructor(props) {
     super(props);
 		this.state = {}
-		};
+	};
 
 	render() {
     return (
 			<React.Fragment>
-				<Button><a className="download" href={this.props.audioURL} download>Download this audio</a></Button>
+				<Button href={this.props.audioURL} download={this.props.fileName}>Download this audio</Button>
 			</React.Fragment>
     );
   }

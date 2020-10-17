@@ -18,9 +18,10 @@ class App extends Component {
 			stream: null,
 			audioURL: null,
 			streamAvailable: null,
+			fileName: null
 		};
 		this.getStreamData = this.getStreamData.bind(this);
-		this.getRecordedAudioURL = this.getRecordedAudioURL.bind(this);
+		this.getRecordedAudioURLAndFileName = this.getRecordedAudioURLAndFileName.bind(this);
 		this.stopMicrophoneAccess = this.stopMicrophoneAccess.bind(this);
 	}
   
@@ -29,9 +30,9 @@ class App extends Component {
 		this.setState({stream: streamData})
 		this.setState({streamAvailable: true})
 	} 
-	// callback function for getting the audioURL of Recorder component
-	getRecordedAudioURL(audioURL) {
-		this.setState({audioURL: audioURL})
+	// callback function for getting the audioURL and fileName of recorded clip from Recorder component
+	getRecordedAudioURLAndFileName(audioURL, fileName) {
+		this.setState({audioURL: audioURL, fileName: fileName})
 	}
 
 	stopMicrophoneAccess() {
@@ -56,9 +57,9 @@ class App extends Component {
 															stream={this.state.stream} 
 						/>
 						{this.state.streamAvailable && <Recorder stream={this.state.stream} 
-																						getRecordedAudioURL={this.getRecordedAudioURL}/> }
+																						getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}/> }
 						{this.state.audioURL && <AudioPlayer audioURL={this.state.audioURL} /> }
-						{this.state.audioURL && <Download audioURL={this.state.audioURL} /> }
+						{this.state.audioURL && <Download audioURL={this.state.audioURL} fileName={this.state.fileName} /> }
 						<h4><FontAwesomeIcon icon={faMicrophone} />Record your voice</h4>
 				</Container>
 	    </div>
@@ -70,7 +71,6 @@ export default App;
 
 // Todo: 
 // - Toggle Mute/Apply Mute
-// - Add Download function
-// - Add UI to Recorder
+// - Add UI to Recorder (Name, Color, ...)
 // - Add Styling
 // - Add Upload function to Dropbox

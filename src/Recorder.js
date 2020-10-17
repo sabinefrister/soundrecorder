@@ -4,7 +4,9 @@ import Button from 'react-bootstrap/Button';
 class Recorder extends Component {
   constructor(props) {
     super(props);
-		this.state = {};
+		this.state = {
+			recordedClipIndex: 1
+		};
 
 		this.recordAudio = this.recordAudio.bind(this);
 		this.stopRecording = this.stopRecording.bind(this);
@@ -29,13 +31,17 @@ class Recorder extends Component {
 		this.mediaRecorder = new MediaRecorder(this.props.stream);
 		// setting up recorded audio snippets
 		var chunks = [];
-		this.mediaRecorder.onstop = function(event) {
 
-  	var blob = new Blob(chunks, {'type' : 'audio/wave'});
-  	chunks = [];
-  	var audioURL = URL.createObjectURL(blob);
-  	this.props.getRecordedAudioURL(audioURL);
-	}.bind(this);
+		this.mediaRecorder.onstop = function(event) {
+			var fileName = prompt("Please enter a name for your sound clip.", 
+				`Audio ${this.state.recordedClipIndex}`)
+
+	  	var blob = new Blob(chunks, {'type' : 'audio/wave'});
+	  	// reset chunks for a new file 
+	  	chunks = [];
+	  	var audioURL = URL.createObjectURL(blob);
+	  	this.props.getRecordedAudioURLAndFileName(audioURL, fileName);
+		}.bind(this);
 
 		this.mediaRecorder.ondataavailable = function(event) {
 			chunks.push(event.data);
@@ -81,3 +87,6 @@ class Recorder extends Component {
 
 export default Recorder;
 
+
+// Todo:
+// - Make workable: Index of Recordings 
