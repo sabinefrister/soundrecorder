@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import MicrophoneAccess from './MicrophoneAccess';
 import Recorder from './Recorder';
 import AudioPlayer from './AudioPlayer';
+import Download from './Download';
 
 
 class App extends Component {
@@ -58,6 +58,7 @@ class App extends Component {
 						{this.state.streamAvailable && <Recorder stream={this.state.stream} 
 																						getRecordedAudioURL={this.getRecordedAudioURL}/> }
 						{this.state.audioURL && <AudioPlayer audioURL={this.state.audioURL} /> }
+						{this.state.audioURL && <Download audioURL={this.state.audioURL} /> }
 						<h4><FontAwesomeIcon icon={faMicrophone} />Record your voice</h4>
 				</Container>
 	    </div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import Recorder from './Recorder';
 
 class MicrophoneAccess extends Component {
   constructor(props) {

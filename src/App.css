@@ -1,3 +1,8 @@
+a.download, a.download:hover  {
+  text-decoration: none;
+  color: inherit;
+}
+
 div.jumbotron {
   text-align: center;
   color: white;
