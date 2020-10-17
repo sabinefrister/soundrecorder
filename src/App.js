@@ -8,6 +8,7 @@ import MicrophoneAccess from './MicrophoneAccess';
 import Recorder from './Recorder';
 import AudioPlayer from './AudioPlayer';
 import Download from './Download';
+import Upload from './Upload';
 
 
 class App extends Component {
@@ -56,11 +57,18 @@ class App extends Component {
 															streamAvailable={this.state.streamAvailable}
 															stream={this.state.stream} 
 						/>
+						<h4><FontAwesomeIcon icon={faMicrophone} />Record your voice</h4>
 						{this.state.streamAvailable && <Recorder stream={this.state.stream} 
 																						getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}/> }
-						{this.state.audioURL && <AudioPlayer audioURL={this.state.audioURL} /> }
-						{this.state.audioURL && <Download audioURL={this.state.audioURL} fileName={this.state.fileName} /> }
-						<h4><FontAwesomeIcon icon={faMicrophone} />Record your voice</h4>
+						{this.state.audioURL && (
+							<div className="Player">
+								<AudioPlayer audioURL={this.state.audioURL} fileName={this.state.fileName} />
+								<Download audioURL={this.state.audioURL} fileName={this.state.fileName} />
+								<Upload />
+							</div>
+						)}
+
+						
 				</Container>
 	    </div>
   	)
@@ -71,6 +79,6 @@ export default App;
 
 // Todo: 
 // - Toggle Mute/Apply Mute
-// - Add UI to Recorder (Name, Color, ...)
+// - Add UI to Recorder (Color while Recording, ...)
 // - Add Styling
 // - Add Upload function to Dropbox

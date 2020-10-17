@@ -8,9 +8,10 @@ class AudioPlayer extends Component {
 
 	render() {
     return (
-			<React.Fragment>
+			<div>
+				<h4>{this.props.fileName}</h4>
 				<audio controls src={this.props.audioURL}></audio>
-			</React.Fragment>
+			</div>
     );
   }
 }
