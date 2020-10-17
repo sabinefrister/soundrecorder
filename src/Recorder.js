@@ -5,12 +5,14 @@ class Recorder extends Component {
   constructor(props) {
     super(props);
 		this.state = {
-			recordedClipIndex: 1
+			recordedClipIndex: 1,
+			onRecord: null,
+			idRecordButton: "",
 		};
 
 		this.recordAudio = this.recordAudio.bind(this);
 		this.stopRecording = this.stopRecording.bind(this);
-		this.playRecording = this.playRecording.bind(this);
+		this.toggleId = this.toggleId.bind(this);
 		// this.toggleMute = this.toggleMute.bind(this);
   }
 
@@ -54,13 +56,21 @@ class Recorder extends Component {
 
   recordAudio() {
   	this.mediaRecorder.start();
+  	this.setState({onRecord: true})
+  	this.toggleId()
   }
 
   stopRecording() {
   	this.mediaRecorder.stop();
   }  
 
-  playRecording() {
+  toggleId() {
+  	if (this.state.onRecord) {
+  		this.setState({idRecordButton: "record"})
+  	}
+  	else {
+  		this.setState({idRecordButton: ""})
+  	}
   }
 
   // toggleMute() {
@@ -75,9 +85,8 @@ class Recorder extends Component {
     return (
 			<React.Fragment>
 				<div>
-					<Button id="record" onClick={this.recordAudio}>Record</Button>
+					<Button id={this.state.idRecordButton} onClick={this.recordAudio}>Record</Button>
 					<Button id="stop" onClick={this.stopRecording}>Stop</Button>
-					<Button id="play" onClick={this.playRecording}>Play</Button>
 					<Button id="mute"onClick={this.toggleMute}>Mute</Button>
 				</div>
       </React.Fragment>

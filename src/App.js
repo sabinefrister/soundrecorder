@@ -82,3 +82,4 @@ export default App;
 // - Add UI to Recorder (Color while Recording, ...)
 // - Add Styling
 // - Add Upload function to Dropbox
+// - Apply more than one audios to be shownsafa
