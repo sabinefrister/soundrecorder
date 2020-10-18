@@ -8,12 +8,17 @@ class Recorder extends Component {
 			recordedClipIndex: 1,
 			onRecord: null,
 			idRecordButton: "",
+			muteId: "deactivated",
+			nameMuteButton: "Mute",
+			idMuteButton: ""
 		};
 
 		this.recordAudio = this.recordAudio.bind(this);
 		this.stopRecording = this.stopRecording.bind(this);
 		this.toggleId = this.toggleId.bind(this);
-		// this.toggleMute = this.toggleMute.bind(this);
+		this.toggleMute = this.toggleMute.bind(this);
+		this.setMute = this.setMute.bind(this);
+		this.setUnmute = this.setUnmute.bind(this);
   }
 
   componentDidMount() {
@@ -55,9 +60,9 @@ class Recorder extends Component {
   }
 
   recordAudio() {
-  	this.mediaRecorder.start();
   	this.setState({onRecord: true})
   	this.toggleId()
+  	this.mediaRecorder.start();
   }
 
   stopRecording() {
@@ -73,13 +78,31 @@ class Recorder extends Component {
   	}
   }
 
-  // toggleMute() {
-		// if(mute.id == null) {
-		// 	setMute();
-		// } else {
-		// 	setUnmute();
-		// };
-  // }
+  toggleMute() {
+		if(this.state.muteId == "deactivated") {
+			this.setMute();
+		} else {
+			this.setUnmute();
+		};
+  }
+
+  setMute() {
+  	this.gainNode.disconnect(this.audioContext.destination);
+		this.setState({muteId: "activated"});
+		this.setState({nameMuteButton: "Unmute"})
+		this.setState({idMuteButton: "mute"})
+
+		// Change appearance - Color (orange) of button
+  }
+
+  setUnmute() {
+  	this.gainNode.connect(this.audioContext.destination);
+		this.setState({muteId: "deactivated"});
+		this.setState({nameMuteButton: "Mute"})
+		this.setState({idMuteButton: ""})
+
+		// Change appearance - Color (normal) of button
+  }
 
   render() {
     return (
@@ -87,7 +110,7 @@ class Recorder extends Component {
 				<div>
 					<Button id={this.state.idRecordButton} onClick={this.recordAudio}>Record</Button>
 					<Button id="stop" onClick={this.stopRecording}>Stop</Button>
-					<Button id="mute"onClick={this.toggleMute}>Mute</Button>
+					<Button id={this.state.idMuteButton} onClick={this.toggleMute}>{this.state.nameMuteButton}</Button>
 				</div>
       </React.Fragment>
     );

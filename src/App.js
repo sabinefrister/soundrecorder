@@ -83,3 +83,4 @@ export default App;
 // - Add Styling
 // - Add Upload function to Dropbox
 // - Apply more than one audios to be shownsafa
+// - Try all states to change from null to false
