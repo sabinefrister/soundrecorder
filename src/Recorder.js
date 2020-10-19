@@ -5,17 +5,16 @@ class Recorder extends Component {
   constructor(props) {
     super(props);
 		this.state = {
-			recordedClipIndex: 1,
-			onRecord: null,
 			idRecordButton: "",
+			enableRecordButton: true,
+			enableStopButton: true,
 			muteId: "deactivated",
 			nameMuteButton: "Mute",
 			idMuteButton: ""
 		};
 
-		this.recordAudio = this.recordAudio.bind(this);
+		this.startRecording = this.startRecording.bind(this);
 		this.stopRecording = this.stopRecording.bind(this);
-		this.toggleId = this.toggleId.bind(this);
 		this.toggleMute = this.toggleMute.bind(this);
 		this.setMute = this.setMute.bind(this);
 		this.setUnmute = this.setUnmute.bind(this);
@@ -41,7 +40,7 @@ class Recorder extends Component {
 
 		this.mediaRecorder.onstop = function(event) {
 			var fileName = prompt("Please enter a name for your sound clip.", 
-				`Audio ${this.state.recordedClipIndex}`)
+				"Audio 1")
 
 	  	var blob = new Blob(chunks, {'type' : 'audio/wave'});
 	  	// reset chunks for a new file 
@@ -59,24 +58,23 @@ class Recorder extends Component {
     this.source.disconnect();
   }
 
-  recordAudio() {
-  	this.setState({onRecord: true})
-  	this.toggleId()
+  startRecording() {
+		this.setState({idRecordButton: "record"})
+		if (this.state.muteId == "deactivated") {
+			this.setUnmute()
+		} 
+		this.setState({enableStopButton: true, enableRecordButton: false})
   	this.mediaRecorder.start();
   }
 
   stopRecording() {
   	this.mediaRecorder.stop();
+  	this.setState({idRecordButton: ""})
+		if (this.state.muteId == "activated") {
+			this.setUnmute()
+		} 
+		this.setState({enableStopButton: false, enableRecordButton: true})
   }  
-
-  toggleId() {
-  	if (this.state.onRecord) {
-  		this.setState({idRecordButton: "record"})
-  	}
-  	else {
-  		this.setState({idRecordButton: ""})
-  	}
-  }
 
   toggleMute() {
 		if(this.state.muteId == "deactivated") {
@@ -91,8 +89,6 @@ class Recorder extends Component {
 		this.setState({muteId: "activated"});
 		this.setState({nameMuteButton: "Unmute"})
 		this.setState({idMuteButton: "mute"})
-
-		// Change appearance - Color (orange) of button
   }
 
   setUnmute() {
@@ -100,16 +96,22 @@ class Recorder extends Component {
 		this.setState({muteId: "deactivated"});
 		this.setState({nameMuteButton: "Mute"})
 		this.setState({idMuteButton: ""})
-
-		// Change appearance - Color (normal) of button
   }
 
   render() {
     return (
 			<React.Fragment>
 				<div>
-					<Button id={this.state.idRecordButton} onClick={this.recordAudio}>Record</Button>
-					<Button id="stop" onClick={this.stopRecording}>Stop</Button>
+					<Button id={this.state.idRecordButton} 
+									onClick={this.startRecording}
+									disabled={!this.state.enableRecordButton}>
+									Record
+					</Button>
+					<Button id="stop" 
+									onClick={this.stopRecording}
+									disabled={!this.state.enableStopButton}>
+									Stop
+					</Button>
 					<Button id={this.state.idMuteButton} onClick={this.toggleMute}>{this.state.nameMuteButton}</Button>
 				</div>
       </React.Fragment>
@@ -122,3 +124,4 @@ export default Recorder;
 
 // Todo:
 // - Make workable: Index of Recordings 
+

@@ -66,9 +66,7 @@ class App extends Component {
 								<Download audioURL={this.state.audioURL} fileName={this.state.fileName} />
 								<Upload />
 							</div>
-						)}
-
-						
+						)}		
 				</Container>
 	    </div>
   	)
@@ -78,9 +76,7 @@ class App extends Component {
 export default App;
 
 // Todo: 
-// - Toggle Mute/Apply Mute
-// - Add UI to Recorder (Color while Recording, ...)
 // - Add Styling
 // - Add Upload function to Dropbox
-// - Apply more than one audios to be shownsafa
+// - Apply more than one audios to be shown (recordedClipIndex: 1,)
 // - Try all states to change from null to false
