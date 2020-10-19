@@ -86,16 +86,12 @@ class Recorder extends Component {
 
   setMute() {
   	this.gainNode.disconnect(this.audioContext.destination);
-		this.setState({muteId: "activated"});
-		this.setState({nameMuteButton: "Unmute"})
-		this.setState({idMuteButton: "mute"})
+		this.setState({muteId: "activated", nameMuteButton: "Unmute", idMuteButton: "mute"});
   }
 
   setUnmute() {
   	this.gainNode.connect(this.audioContext.destination);
-		this.setState({muteId: "deactivated"});
-		this.setState({nameMuteButton: "Mute"})
-		this.setState({idMuteButton: ""})
+		this.setState({muteId: "deactivated", nameMuteButton: "Mute", idMuteButton: ""});
   }
 
   render() {

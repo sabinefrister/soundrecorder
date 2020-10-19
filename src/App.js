@@ -15,11 +15,10 @@ class App extends Component {
   constructor(props) {
     super(props);
 		this.state = {
-			data: null,
 			stream: null,
 			audioURL: null,
-			streamAvailable: null,
-			fileName: null
+			streamAvailable: false,
+			fileName: null,
 		};
 		this.getStreamData = this.getStreamData.bind(this);
 		this.getRecordedAudioURLAndFileName = this.getRecordedAudioURLAndFileName.bind(this);
