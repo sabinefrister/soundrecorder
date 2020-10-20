@@ -46,7 +46,7 @@ class Recorder extends Component {
 	  	// reset chunks for a new file 
 	  	chunks = [];
 	  	var audioURL = URL.createObjectURL(blob);
-	  	this.props.getRecordedAudioURLAndFileName(audioURL, fileName);
+	  	this.props.getRecordedAudioURLAndFileName(audioURL, `${fileName}.wav`);
 		}.bind(this);
 
 		this.mediaRecorder.ondataavailable = function(event) {
@@ -60,7 +60,7 @@ class Recorder extends Component {
 
   startRecording() {
 		this.setState({idRecordButton: "record"})
-		if (this.state.muteId == "deactivated") {
+		if (this.state.muteId === "deactivated") {
 			this.setUnmute()
 		} 
 		this.setState({enableStopButton: true, enableRecordButton: false})
@@ -70,14 +70,14 @@ class Recorder extends Component {
   stopRecording() {
   	this.mediaRecorder.stop();
   	this.setState({idRecordButton: ""})
-		if (this.state.muteId == "activated") {
+		if (this.state.muteId === "activated") {
 			this.setUnmute()
 		} 
 		this.setState({enableStopButton: false, enableRecordButton: true})
   }  
 
   toggleMute() {
-		if(this.state.muteId == "deactivated") {
+		if(this.state.muteId === "deactivated") {
 			this.setMute();
 		} else {
 			this.setUnmute();

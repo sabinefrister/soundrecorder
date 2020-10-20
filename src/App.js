@@ -63,7 +63,7 @@ class App extends Component {
 							<div className="Player">
 								<AudioPlayer audioURL={this.state.audioURL} fileName={this.state.fileName} />
 								<Download audioURL={this.state.audioURL} fileName={this.state.fileName} />
-								<Upload />
+								<Upload audioURL={this.state.audioURL} fileName={this.state.fileName}/>
 							</div>
 						)}		
 				</Container>
@@ -78,4 +78,6 @@ export default App;
 // - Add Styling
 // - Add Upload function to Dropbox
 // - Apply more than one audios to be shown (recordedClipIndex: 1,)
-// - Try all states to change from null to false
+// Add filename .wav
+// Was nehme ich eigentlich auf? AUsgabe über Lautsprecher 
+// MUte einstellen, wenn record fertig

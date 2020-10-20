@@ -5,12 +5,32 @@ class Upload extends Component {
   constructor(props) {
     super(props);
 		this.state = {}
+		this.uploadToDropbox = this.uploadToDropbox.bind(this)
 	};
+
+	// componentDidMount() {
+	// 	let accessToken = ACCESS_TOKEN;
+	// 	const dropboxAPI = new Dropbox({  
+	// 	  accessToken: accessToken,
+	// 	  fetch: window.fetch.bind(window) 
+	// 	});
+
+	// 	dropboxAPI.filesListFolder({  
+	// 	  path: ''  
+	// 	}).then(response => console.log("response" + response))
+	// }
+
+	uploadToDropbox() {
+		var url = this.props.audioURL;
+		var filename = this.props.filename;
+		var options = {}
+		window.Dropbox.save(url, filename, options);
+	}
 
 	render() {
     return (
 			<React.Fragment>
-				<Button>Upload this audio</Button>
+				<Button onClick={this.uploadToDropbox}>Upload this audio</Button>
 			</React.Fragment>
     );
   }
