@@ -60,7 +60,7 @@ class Recorder extends Component {
 
   startRecording() {
 		this.setState({idRecordButton: "record"})
-		if (this.state.muteId === "deactivated") {
+		if (this.state.muteId === "activated") {
 			this.setUnmute()
 		} 
 		this.setState({enableStopButton: true, enableRecordButton: false})
@@ -69,9 +69,9 @@ class Recorder extends Component {
 
   stopRecording() {
   	this.mediaRecorder.stop();
-  	this.setState({idRecordButton: ""})
-		if (this.state.muteId === "activated") {
-			this.setUnmute()
+  	this.setState({idRecordButton: ""});
+		if (this.state.muteId === "deactivated") {
+			this.setMute()
 		} 
 		this.setState({enableStopButton: false, enableRecordButton: true})
   }  
