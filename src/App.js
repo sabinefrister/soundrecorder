@@ -8,7 +8,6 @@ import MicrophoneAccess from './MicrophoneAccess';
 import Recorder from './Recorder';
 import AudioPlayer from './AudioPlayer';
 import Download from './Download';
-import Upload from './Upload';
 
 
 class App extends Component {
@@ -43,10 +42,10 @@ class App extends Component {
   	return (
   		<div className="App">
 				<Jumbotron> 
-				  <h1>Record audio and upload to Dropbox</h1>
+				  <h1>Record audio and Download to your computer</h1>
 				  <p>
 				    You can record anything you like with this simple sound recorder. After naming your file, 
-				    you can upload it to Dropbox.
+				    you can download it to your computer.
 				  </p>
 				</Jumbotron>
 				<Container>
@@ -63,7 +62,6 @@ class App extends Component {
 							<div className="Player">
 								<AudioPlayer audioURL={this.state.audioURL} fileName={this.state.fileName} />
 								<Download audioURL={this.state.audioURL} fileName={this.state.fileName} />
-								<Upload audioURL={this.state.audioURL} fileName={this.state.fileName}/>
 							</div>
 						)}		
 				</Container>
@@ -76,7 +74,6 @@ export default App;
 
 // Todo: 
 // - Add Styling
-// - Add Upload function to Dropbox
 // - Apply more than one audios to be shown (recordedClipIndex: 1,)
 // Add filename .wav
 // Was nehme ich eigentlich auf? AUsgabe über Lautsprecher 
