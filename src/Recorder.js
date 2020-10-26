@@ -96,28 +96,28 @@ class Recorder extends Component {
 
   render() {
     return (
-			<React.Fragment>
-				<div>
-					<Button id={this.state.idRecordButton} 
-									onClick={this.startRecording}
-									disabled={!this.state.enableRecordButton}>
-									Record
-					</Button>
-					<Button id="stop" 
-									onClick={this.stopRecording}
-									disabled={!this.state.enableStopButton}>
-									Stop
-					</Button>
-					<Button id={this.state.idMuteButton} onClick={this.toggleMute}>{this.state.nameMuteButton}</Button>
-				</div>
-      </React.Fragment>
+			<div className="recorder">
+				<h2>Recorder</h2>
+				<Button id={this.state.idRecordButton} 
+								onClick={this.startRecording}
+								disabled={!this.state.enableRecordButton}>
+								Record
+				</Button>
+				<Button id="stop" 
+								onClick={this.stopRecording}
+								disabled={!this.state.enableStopButton}>
+								Stop
+				</Button>
+				<Button id={this.state.idMuteButton} onClick={this.toggleMute}>{this.state.nameMuteButton}</Button>
+			</div>
     );
   }
 }
 
 export default Recorder;
 
-
-// Todo:
-// - Make workable: Index of Recordings 
-
+// TODO
+// Style Propt:
+// 			window.prompt = function(message) {
+//				console.log(message)
+//			}

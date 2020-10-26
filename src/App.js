@@ -49,13 +49,12 @@ class App extends Component {
 				  </p>
 				</Jumbotron>
 				<Container>
-						<h2>Recorder</h2>
+						<h1><FontAwesomeIcon icon={faMicrophone} /> Record your voice</h1>
 						<MicrophoneAccess getStreamData={this.getStreamData} 
 															stopMicrophoneAccess={this.stopMicrophoneAccess}
 															streamAvailable={this.state.streamAvailable}
 															stream={this.state.stream} 
 						/>
-						<h4><FontAwesomeIcon icon={faMicrophone} />Record your voice</h4>
 						{this.state.streamAvailable && <Recorder stream={this.state.stream} 
 																						getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}/> }
 						{this.state.audioURL && (
@@ -74,7 +73,6 @@ export default App;
 
 // Todo: 
 // - Add Styling
-// - Apply more than one audios to be shown (recordedClipIndex: 1,)
-// Add filename .wav
-// Was nehme ich eigentlich auf? AUsgabe über Lautsprecher 
-// MUte einstellen, wenn record fertig
+// - Kann ich Mute einfach rausschmeißen? - > Destination bindet die Lautsprecher ein. -> Ausgabe über Lautsprecher. Qualtät klingt schrecklich...
+// Wenn ich den Ton nicht über die Lautsprecher höre, dann brauche ich ja auch nicht das Mute... Die Ausgabe bräcuhte ich theoretisch nur
+// wenn ich was über die Kopfhörer hören will, aber das ist mega verzögert, also nicht nutzbar...
