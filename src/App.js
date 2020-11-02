@@ -51,12 +51,18 @@ class App extends Component {
 					<Row>
 						<Col className="recorder">
 							<h2>Recorder</h2>
-							<MicrophoneAccess getStreamData={this.getStreamData} 
-																streamAvailable={this.state.streamAvailable}
-																stream={this.state.stream} 
-							/>
-							{this.state.streamAvailable && <Recorder stream={this.state.stream} 
-																							getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}/> }
+							{!this.state.streamAvailable && (
+								<MicrophoneAccess 
+									stream={this.state.stream}
+									getStreamData={this.getStreamData} 					 
+								/>
+							)}
+							{this.state.streamAvailable && 
+								<Recorder 
+									stream={this.state.stream} 
+									getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}
+								/>
+							}
 						</Col>
 						<Col className="player">
 							<h2>Player</h2>
