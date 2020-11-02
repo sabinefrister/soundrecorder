@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container';
-import Jumbotron from 'react-bootstrap/Jumbotron';
+import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
@@ -49,20 +48,32 @@ class App extends Component {
 				  </p>
 				</Jumbotron>
 				<Container>
-						<h1><FontAwesomeIcon icon={faMicrophone} /> Record your voice</h1>
-						<MicrophoneAccess getStreamData={this.getStreamData} 
-															stopMicrophoneAccess={this.stopMicrophoneAccess}
-															streamAvailable={this.state.streamAvailable}
-															stream={this.state.stream} 
-						/>
-						{this.state.streamAvailable && <Recorder stream={this.state.stream} 
-																						getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}/> }
-						{this.state.audioURL && (
-							<div className="Player">
-								<AudioPlayer audioURL={this.state.audioURL} fileName={this.state.fileName} />
-								<Download audioURL={this.state.audioURL} fileName={this.state.fileName} />
-							</div>
-						)}		
+					<Row>
+						<Col className="headline">
+							<h1 className="headline"><FontAwesomeIcon icon={faMicrophone} /> Record your voice</h1>
+						</Col>
+					</Row>
+					<Row>
+						<Col className="recorder">
+							<h2>Recorder</h2>
+							<MicrophoneAccess getStreamData={this.getStreamData} 
+																stopMicrophoneAccess={this.stopMicrophoneAccess}
+																streamAvailable={this.state.streamAvailable}
+																stream={this.state.stream} 
+							/>
+							{this.state.streamAvailable && <Recorder stream={this.state.stream} 
+																							getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}/> }
+						</Col>
+						<Col className="player">
+							<h2>Player</h2>
+							{this.state.audioURL && (
+								<div className="Player">
+									<AudioPlayer audioURL={this.state.audioURL} fileName={this.state.fileName} />
+									<Download audioURL={this.state.audioURL} fileName={this.state.fileName} />
+								</div>
+							)}	
+						</Col>
+					</Row>
 				</Container>
 	    </div>
   	)

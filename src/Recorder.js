@@ -97,7 +97,6 @@ class Recorder extends Component {
   render() {
     return (
 			<div className="recorder">
-				<h2>Recorder</h2>
 				<Button id={this.state.idRecordButton} 
 								onClick={this.startRecording}
 								disabled={!this.state.enableRecordButton}>

@@ -1,4 +1,4 @@
-h1 {
+h1.headline {
   margin-bottom: 2rem;
 }
 
@@ -10,13 +10,8 @@ div.jumbotron {
   /*background-color: #464866;*/
 }
 
-.recorder {
-  margin-top: 1rem;
-}
-
-div#controlbar.controlBar {
-  border-radius: 5px;
-  color: green;
+audio {
+  border-radius: 4px;
 }
 
 .btn.btn-primary {
