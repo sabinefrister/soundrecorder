@@ -48,32 +48,37 @@ class App extends Component {
 							<h1 className="headline"><FontAwesomeIcon icon={faMicrophone} /> Record your voice</h1>
 						</Col>
 					</Row>
-					<Row>
-						<Col className="recorder">
-							<h2>Recorder</h2>
-							{!this.state.streamAvailable && (
+
+					{!this.state.streamAvailable && (
+						<Row>
+							<Col className="recorder">
 								<MicrophoneAccess 
 									stream={this.state.stream}
 									getStreamData={this.getStreamData} 					 
 								/>
-							)}
-							{this.state.streamAvailable && 
+							</Col>
+						</Row>
+					)}
+					{this.state.streamAvailable && !this.state.fileName && (
+						<Row>
+							<Col>
 								<Recorder 
 									stream={this.state.stream} 
 									getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}
 								/>
-							}
-						</Col>
-						<Col className="player">
-							<h2>Player</h2>
-							{this.state.audioURL && (
+							</Col>
+						</Row>
+					)}
+					{this.state.audioURL && (
+						<Row>
+							<Col className="player">
 								<div className="Player">
 									<AudioPlayer audioURL={this.state.audioURL} fileName={this.state.fileName} />
 									<Download audioURL={this.state.audioURL} fileName={this.state.fileName} />
 								</div>
-							)}	
-						</Col>
-					</Row>
+							</Col>
+						</Row>
+					)}
 				</Container>
 	    </div>
   	)
