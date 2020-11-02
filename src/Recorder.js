@@ -8,16 +8,10 @@ class Recorder extends Component {
 			idRecordButton: "",
 			enableRecordButton: true,
 			enableStopButton: true,
-			muteId: "deactivated",
-			nameMuteButton: "Mute",
-			idMuteButton: ""
 		};
 
 		this.startRecording = this.startRecording.bind(this);
 		this.stopRecording = this.stopRecording.bind(this);
-		this.toggleMute = this.toggleMute.bind(this);
-		this.setMute = this.setMute.bind(this);
-		this.setUnmute = this.setUnmute.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +25,6 @@ class Recorder extends Component {
 		this.initialVol = 0.75;
 		this.gainNode.gain.value = this.initialVol;
 		this.source.connect(this.gainNode);
-		this.gainNode.connect(this.audioContext.destination)
 
 		// Creating a mediaRecorder
 		this.mediaRecorder = new MediaRecorder(this.props.stream);
@@ -60,9 +53,6 @@ class Recorder extends Component {
 
   startRecording() {
 		this.setState({idRecordButton: "record"})
-		if (this.state.muteId === "activated") {
-			this.setUnmute()
-		} 
 		this.setState({enableStopButton: true, enableRecordButton: false})
   	this.mediaRecorder.start();
   }
@@ -70,29 +60,8 @@ class Recorder extends Component {
   stopRecording() {
   	this.mediaRecorder.stop();
   	this.setState({idRecordButton: ""});
-		if (this.state.muteId === "deactivated") {
-			this.setMute()
-		} 
 		this.setState({enableStopButton: false, enableRecordButton: true})
   }  
-
-  toggleMute() {
-		if(this.state.muteId === "deactivated") {
-			this.setMute();
-		} else {
-			this.setUnmute();
-		};
-  }
-
-  setMute() {
-  	this.gainNode.disconnect(this.audioContext.destination);
-		this.setState({muteId: "activated", nameMuteButton: "Unmute", idMuteButton: "mute"});
-  }
-
-  setUnmute() {
-  	this.gainNode.connect(this.audioContext.destination);
-		this.setState({muteId: "deactivated", nameMuteButton: "Mute", idMuteButton: ""});
-  }
 
   render() {
     return (
@@ -107,7 +76,6 @@ class Recorder extends Component {
 								disabled={!this.state.enableStopButton}>
 								Stop
 				</Button>
-				<Button id={this.state.idMuteButton} onClick={this.toggleMute}>{this.state.nameMuteButton}</Button>
 			</div>
     );
   }
