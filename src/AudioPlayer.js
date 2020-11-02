@@ -11,8 +11,7 @@ class AudioPlayer extends Component {
 			<div>
 				<h4>{this.props.fileName}</h4>
 				<audio controls 
-					src={this.props.audioURL} 
-					Your browser does not support the audio element
+					src={this.props.audioURL}
 				/>
 			</div>
     );

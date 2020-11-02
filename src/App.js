@@ -6,7 +6,8 @@ import './App.css';
 import MicrophoneAccess from './MicrophoneAccess';
 import Recorder from './Recorder';
 import AudioPlayer from './AudioPlayer';
-import Download from './Download';
+import DownloadButton from './DownloadButton';
+import NewRecordingButton from './NewRecordingButton';
 
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
 		};
 		this.getStreamData = this.getStreamData.bind(this);
 		this.getRecordedAudioURLAndFileName = this.getRecordedAudioURLAndFileName.bind(this);
+		this.setNewRecording = this.setNewRecording.bind(this);
 	}
   
 	// callback function for getting the stream of MicrophoneAccess component
@@ -30,6 +32,10 @@ class App extends Component {
 	// callback function for getting the audioURL and fileName of recorded clip from Recorder component
 	getRecordedAudioURLAndFileName(audioURL, fileName) {
 		this.setState({audioURL: audioURL, fileName: fileName})
+	}
+
+	setNewRecording() {
+		this.setState({audioURL: null, fileName: null})
 	}
 
   render() {
@@ -74,7 +80,8 @@ class App extends Component {
 							<Col className="player">
 								<div className="Player">
 									<AudioPlayer audioURL={this.state.audioURL} fileName={this.state.fileName} />
-									<Download audioURL={this.state.audioURL} fileName={this.state.fileName} />
+									<DownloadButton audioURL={this.state.audioURL} fileName={this.state.fileName} />
+									<NewRecordingButton setNewRecording={this.setNewRecording}/>
 								</div>
 							</Col>
 						</Row>
