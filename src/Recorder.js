@@ -82,9 +82,3 @@ class Recorder extends Component {
 }
 
 export default Recorder;
-
-// TODO
-// Style Propt:
-// 			window.prompt = function(message) {
-//				console.log(message)
-//			}

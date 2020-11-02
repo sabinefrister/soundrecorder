@@ -4,11 +4,14 @@ import Button from 'react-bootstrap/Button';
 class MicrophoneAccess extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    this.toggleMicrophone = this.toggleMicrophone.bind(this);
+    this.state = {
+      microphoneAccess: true,
+    };
+    this.getMicrophone = this.getMicrophone.bind(this);
     }
 
   async getMicrophone() {
+    this.setState({microphoneAccess: false})
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: true,
       video: false
@@ -16,25 +19,14 @@ class MicrophoneAccess extends Component {
     this.props.getStreamData(stream)
   }
 
-  stopMicrophone() {
-    this.props.stream.getTracks().forEach(track => track.stop());
-    this.props.stopMicrophoneAccess()
-  }
-
-  toggleMicrophone() {
-    if (this.props.streamAvailable) {
-      this.stopMicrophone();
-    } else {
-      this.getMicrophone();
-    }
-  }
-
   render() {
     return (
       <React.Fragment>
-          <Button onClick={this.toggleMicrophone}>
-            {this.props.streamAvailable ? 'Stop microphone input' : 'Allow microphone input'} 
+        {this.state.microphoneAccess && (
+          <Button onClick={this.getMicrophone}>
+            Allow microphone input
           </Button>
+        )}
       </React.Fragment>
     );
   }

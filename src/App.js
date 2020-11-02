@@ -20,7 +20,6 @@ class App extends Component {
 		};
 		this.getStreamData = this.getStreamData.bind(this);
 		this.getRecordedAudioURLAndFileName = this.getRecordedAudioURLAndFileName.bind(this);
-		this.stopMicrophoneAccess = this.stopMicrophoneAccess.bind(this);
 	}
   
 	// callback function for getting the stream of MicrophoneAccess component
@@ -31,10 +30,6 @@ class App extends Component {
 	// callback function for getting the audioURL and fileName of recorded clip from Recorder component
 	getRecordedAudioURLAndFileName(audioURL, fileName) {
 		this.setState({audioURL: audioURL, fileName: fileName})
-	}
-
-	stopMicrophoneAccess() {
-		this.setState({streamAvailable: null})
 	}
 
   render() {
@@ -57,7 +52,6 @@ class App extends Component {
 						<Col className="recorder">
 							<h2>Recorder</h2>
 							<MicrophoneAccess getStreamData={this.getStreamData} 
-																stopMicrophoneAccess={this.stopMicrophoneAccess}
 																streamAvailable={this.state.streamAvailable}
 																stream={this.state.stream} 
 							/>
@@ -81,9 +75,3 @@ class App extends Component {
 };
 
 export default App;
-
-// Todo: 
-// - Add Styling
-// - Kann ich Mute einfach rausschmeißen? - > Destination bindet die Lautsprecher ein. -> Ausgabe über Lautsprecher. Qualtät klingt schrecklich...
-// Wenn ich den Ton nicht über die Lautsprecher höre, dann brauche ich ja auch nicht das Mute... Die Ausgabe bräcuhte ich theoretisch nur
-// wenn ich was über die Kopfhörer hören will, aber das ist mega verzögert, also nicht nutzbar...
