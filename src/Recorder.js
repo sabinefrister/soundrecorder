@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import RecordDuration from './RecordDuration';
+import Timer from './Timer';
 
 
 class Recorder extends Component {
   constructor(props) {
     super(props);
 		this.state = {
+			timerStarted: false,
 			idRecordButton: "",
 			enableRecordButton: true,
 			enableStopButton: true,
@@ -54,6 +55,7 @@ class Recorder extends Component {
   }
 
   startRecording() {
+  	this.setState({timerStarted: true})
 		this.setState({idRecordButton: "record"})
 		this.setState({enableStopButton: true, enableRecordButton: false})
   	this.mediaRecorder.start();
@@ -61,6 +63,7 @@ class Recorder extends Component {
 
   stopRecording() {
   	this.mediaRecorder.stop();
+  	this.setState({timerStarted: false})
   	this.setState({idRecordButton: ""});
 		this.setState({enableStopButton: false, enableRecordButton: true})
   }  
@@ -68,7 +71,7 @@ class Recorder extends Component {
   render() {
     return (
 			<div className="recorder">
-				<RecordDuration />
+				<Timer timerStarted={this.state.timerStarted} />
 				<Button id={this.state.idRecordButton} 
 								onClick={this.startRecording}
 								disabled={!this.state.enableRecordButton}>
