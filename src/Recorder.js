@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
+import RecordDuration from './RecordDuration';
+
 
 class Recorder extends Component {
   constructor(props) {
@@ -66,6 +68,7 @@ class Recorder extends Component {
   render() {
     return (
 			<div className="recorder">
+				<RecordDuration />
 				<Button id={this.state.idRecordButton} 
 								onClick={this.startRecording}
 								disabled={!this.state.enableRecordButton}>

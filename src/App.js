@@ -9,7 +9,6 @@ import AudioPlayer from './AudioPlayer';
 import DownloadButton from './DownloadButton';
 import NewRecordingButton from './NewRecordingButton';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
