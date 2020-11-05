@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 
+
 class DownloadButton extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +11,7 @@ class DownloadButton extends Component {
 	render() {
     return (
 			<React.Fragment>
-				<Button href={this.props.audioURL} download={this.props.fileName}>Download this audio</Button>
+				<Button size="lg" href={this.props.audioURL} download={this.props.fileName}>Download this audio</Button>
 			</React.Fragment>
     );
   }

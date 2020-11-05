@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Button, Modal} from 'react-bootstrap/';
 
+
 class NewRecordingButton extends Component {
   constructor(props) {
     super(props);
@@ -29,20 +30,20 @@ class NewRecordingButton extends Component {
 	render() {
     return (
 			<React.Fragment>
-				<Button onClick={this.handleShow}>Start a new recording</Button>
-				<Modal show={this.state.show} onHide={this.handleClose}>
+				<Button size="lg" onClick={this.handleShow}>Start a new recording</Button>
+				<Modal show={this.state.show} onHide={this.handleClose} centered>
 					<Modal.Header closeButton>
 						<Modal.Title>
 							Start a new Recording
 						</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						You can start a new recording, but your previous recording will be deleted. 
-						Did you save it? If not, please cancel. If yes, press OK.
+						Did you save your previous recording? 
+						If yes, press OK. If not, please cancel and save it, if you want to keep it.
 					</Modal.Body>
 					<Modal.Footer>
 						<Button onClick={this.handleClose}>Cancel</Button>
-						<Button onClick={this.onOK}>Ok</Button>
+						<Button onClick={this.onOK}>OK</Button>
 					</Modal.Footer>
 				</Modal>
 			</React.Fragment>

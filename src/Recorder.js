@@ -72,12 +72,14 @@ class Recorder extends Component {
     return (
 			<div className="recorder">
 				<Timer timerStarted={this.state.timerStarted} />
-				<Button id={this.state.idRecordButton} 
+				<Button size="lg" 
+								id={this.state.idRecordButton} 
 								onClick={this.startRecording}
 								disabled={!this.state.enableRecordButton}>
 								Record
 				</Button>
-				<Button id="stop" 
+				<Button size="lg" 
+								id="stop" 
 								onClick={this.stopRecording}
 								disabled={!this.state.enableStopButton}>
 								Stop

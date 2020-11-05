@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class AudioPlayer extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +10,7 @@ class AudioPlayer extends Component {
 	render() {
     return (
 			<div>
-				<h4>{this.props.fileName}</h4>
+				<h3>{this.props.fileName}</h3>
 				<audio controls 
 					src={this.props.audioURL}
 				/>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Jumbotron, Row, Col } from 'react-bootstrap';
+import { Navbar, Container, Jumbotron, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
@@ -8,6 +8,7 @@ import Recorder from './Recorder';
 import AudioPlayer from './AudioPlayer';
 import DownloadButton from './DownloadButton';
 import NewRecordingButton from './NewRecordingButton';
+
 
 class App extends Component {
   constructor(props) {
@@ -39,54 +40,54 @@ class App extends Component {
 
   render() {
   	return (
-  		<div className="App">
-				<Jumbotron> 
-				  <h1>Record audio and Download to your computer</h1>
+  		<React.Fragment>
+			  <Navbar variant="dark">
+			    <Navbar.Brand>
+			    	<FontAwesomeIcon icon={faMicrophone}  className="d-inline-block align-top"/>
+			    	{' '}Record your voice
+			    </Navbar.Brand>
+			  </Navbar>
+				<Container className="main-container">
+				  <h1>Record audio and Download it to your computer</h1>
 				  <p>
-				    You can record anything you like with this simple sound recorder. After naming your file, 
-				    you can download it to your computer.
+				    You can record anything you like with this simple sound recorder.
+				    After naming your file, you can download it to your computer.
 				  </p>
-				</Jumbotron>
-				<Container>
-					<Row>
-						<Col className="headline">
-							<h1 className="headline"><FontAwesomeIcon icon={faMicrophone} /> Record your voice</h1>
-						</Col>
-					</Row>
-
-					{!this.state.streamAvailable && (
-						<Row>
-							<Col className="recorder">
-								<MicrophoneAccess 
-									stream={this.state.stream}
-									getStreamData={this.getStreamData} 					 
-								/>
-							</Col>
-						</Row>
-					)}
-					{this.state.streamAvailable && !this.state.fileName && (
-						<Row>
-							<Col>
-								<Recorder 
-									stream={this.state.stream} 
-									getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}
-								/>
-							</Col>
-						</Row>
-					)}
-					{this.state.audioURL && (
-						<Row>
-							<Col className="player">
-								<div className="Player">
-									<AudioPlayer audioURL={this.state.audioURL} fileName={this.state.fileName} />
-									<DownloadButton audioURL={this.state.audioURL} fileName={this.state.fileName} />
-									<NewRecordingButton setNewRecording={this.setNewRecording}/>
-								</div>
-							</Col>
-						</Row>
-					)}
-				</Container>
-	    </div>
+				  <Jumbotron>
+						{!this.state.streamAvailable && (
+							<Row>
+								<Col className="recorder">
+									<MicrophoneAccess 
+										stream={this.state.stream}
+										getStreamData={this.getStreamData} 					 
+									/>
+								</Col>
+							</Row>
+						)}
+						{this.state.streamAvailable && !this.state.fileName && (
+							<Row>
+								<Col>
+									<Recorder 
+										stream={this.state.stream} 
+										getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}
+									/>
+								</Col>
+							</Row>
+						)}
+						{this.state.audioURL && (
+							<Row>
+								<Col className="player">
+									<div className="Player">
+										<AudioPlayer audioURL={this.state.audioURL} fileName={this.state.fileName} />
+										<DownloadButton audioURL={this.state.audioURL} fileName={this.state.fileName} />
+										<NewRecordingButton setNewRecording={this.setNewRecording}/>
+									</div>
+								</Col>
+							</Row>
+						)}
+					</Jumbotron>
+		    </Container>
+	    </React.Fragment>
   	)
   }
 };

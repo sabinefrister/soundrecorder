@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button';
 
 
 class Timer extends Component {
@@ -36,7 +35,11 @@ class Timer extends Component {
 
 	render() {
     return (
-			<span className="recordDuration">{this.state.duration ? this.state.duration.toLocaleTimeString() : "00:00:00"}</span>
+    	<div className="timer">
+				<h3>
+					{this.state.duration ? this.state.duration.toLocaleTimeString() : "00:00:00"}
+				</h3>
+			</div>
     );
   }
 }

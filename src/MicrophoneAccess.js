@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 
+
 class MicrophoneAccess extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +20,7 @@ class MicrophoneAccess extends Component {
   render() {
     return (
       <React.Fragment>
-          <Button onClick={this.getMicrophone}>
+          <Button size="lg" onClick={this.getMicrophone}>
             Allow microphone input
           </Button>
       </React.Fragment>
