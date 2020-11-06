@@ -10,7 +10,7 @@ class AudioPlayer extends Component {
 	render() {
     return (
 			<div>
-				<h3>{this.props.fileName}</h3>
+				<h3">{this.props.fileName}</h3>
 				<audio controls 
 					src={this.props.audioURL}
 				/>
