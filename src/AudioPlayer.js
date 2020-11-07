@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 
 
 class AudioPlayer extends Component {
-  constructor(props) {
-    super(props);
-		this.state = {}
-		};
-
 	render() {
     return (
 			<div>
-				<h3">{this.props.fileName}</h3>
+				<h3>{this.props.fileName}</h3>
 				<audio controls 
 					src={this.props.audioURL}
 				/>
@@ -20,3 +16,9 @@ class AudioPlayer extends Component {
 }
 
 export default AudioPlayer;
+
+
+AudioPlayer.propTypes = {
+	fileName: PropTypes.string,
+	audioURL: PropTypes.string
+};
