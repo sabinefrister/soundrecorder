@@ -19,6 +19,6 @@ export default AudioPlayer;
 
 
 AudioPlayer.propTypes = {
-	fileName: PropTypes.string,
-	audioURL: PropTypes.string
+	fileName: PropTypes.string.isRequired,
+	audioURL: PropTypes.string.isRequired
 };

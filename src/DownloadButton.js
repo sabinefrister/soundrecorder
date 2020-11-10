@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types'
 
 
 class DownloadButton extends Component {
-  constructor(props) {
-    super(props);
-		this.state = {}
-	};
-
 	render() {
     return (
 			<React.Fragment>
@@ -18,3 +14,9 @@ class DownloadButton extends Component {
 }
 
 export default DownloadButton;
+
+
+DownloadButton.propTypes = {
+	fileName: PropTypes.string.isRequired,
+	audioURL: PropTypes.string.isRequired
+};

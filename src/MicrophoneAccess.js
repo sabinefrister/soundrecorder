@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types'
 
 
 class MicrophoneAccess extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
     this.getMicrophone = this.getMicrophone.bind(this);
-    }
+  }
 
   async getMicrophone() {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: false
-    });
-    this.props.getStreamData(stream)
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: false
+      });
+      this.props.getStreamData(stream)
+    }
+    catch {
+      console.log("It wasn't possible to access your microphone.")
+    }
   }
 
   render() {
@@ -29,3 +34,8 @@ class MicrophoneAccess extends Component {
 }
 
 export default MicrophoneAccess;
+
+
+MicrophoneAccess.propTypes = {
+  getStreamData: PropTypes.func.isRequired
+};

@@ -14,7 +14,6 @@ class App extends Component {
   constructor(props) {
     super(props);
 		this.state = {
-			stream: null,
 			audioURL: null,
 			streamAvailable: false,
 			fileName: null,
@@ -58,7 +57,6 @@ class App extends Component {
 							<Row>
 								<Col className="recorder">
 									<MicrophoneAccess 
-										stream={this.state.stream}
 										getStreamData={this.getStreamData} 					 
 									/>
 								</Col>
