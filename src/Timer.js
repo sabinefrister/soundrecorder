@@ -13,6 +13,7 @@ class Timer extends Component {
 		};
 
 	refreshTimer() {
+		console.log("refresh Timer")
 		let dateNow = Date.now()
 		let elapsedTime = dateNow - this.state.dateStart;
 		let duration = new Date()
@@ -21,12 +22,16 @@ class Timer extends Component {
 	}
 
 	componentDidUpdate() {
+		console.log("before if")
 		if (this.props.timerStarted && this.state.dateStart === null) {
+			console.log("after if")
 			this.setState({dateStart: Date.now()})
+			console.log("after date start")
 			this.timerID = setInterval(
 	      () => this.refreshTimer(),
 	      1000
 	    )
+	    console.log("after timer ID")
 		}
 	}
 
@@ -35,6 +40,7 @@ class Timer extends Component {
   }
 
 	render() {
+		console.log("RENDER: duration " + this.state.duration + " timerstarted " + this.props.timerStarted)
     return (
     	<div className="timer">
 				<h3>

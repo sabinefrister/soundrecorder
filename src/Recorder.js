@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Timer from './Timer';
+import PropTypes from 'prop-types'
 
 
 class Recorder extends Component {
@@ -90,3 +91,9 @@ class Recorder extends Component {
 }
 
 export default Recorder;
+
+
+Recorder.propTypes = {
+  stream: PropTypes.object.isRequired,
+  getRecordedAudioURLAndFileName: PropTypes.func.isRequired
+};
