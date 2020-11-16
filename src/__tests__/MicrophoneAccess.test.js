@@ -24,7 +24,7 @@ describe('MicrophoneAccess', () => {
     expect(wrapper.find('Button').props().size).toEqual("lg");
   })
 
-  test('should call getStreamData after button click', () => {
+  test('should call getStreamData after button click', async () => {
     const mockGetStreamData = jest.fn();
     wrapper = mount(<MicrophoneAccess getStreamData={mockGetStreamData} />);
 
@@ -38,14 +38,10 @@ describe('MicrophoneAccess', () => {
       .find('Button')
       .simulate('click');
 
-    expect(mockMediaDevices.getUserMedia.mock.calls.length).toBe(1);
-    // expect(mockGetStreamData).toHaveBeenCalled();
-    // console.log(mockGetStreamData.mock)
-    // console.log(wrapper.props().getStreamData.mock)
-    // console.log(wrapper.instance().props.getStreamData.mock)
+    await expect(mockMediaDevices.getUserMedia.mock.calls.length).toBe(1);
+    expect(mockGetStreamData.mock.calls.length).toBe(1);
   })
 });
-
 
 
 // MediaStream

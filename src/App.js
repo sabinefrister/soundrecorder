@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Container, Jumbotron, Row, Col } from 'react-bootstrap';
+import { Navbar, Container, Jumbotron, Row, Col, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
@@ -17,6 +17,7 @@ class App extends Component {
 			audioURL: null,
 			streamAvailable: false,
 			fileName: null,
+			showAlert: false,
 		};
 		this.getStreamData = this.getStreamData.bind(this);
 		this.getRecordedAudioURLAndFileName = this.getRecordedAudioURLAndFileName.bind(this);
@@ -25,8 +26,11 @@ class App extends Component {
   
 	// callback function for getting the stream of MicrophoneAccess component
 	getStreamData(streamData) {
-		this.setState({stream: streamData})
-		this.setState({streamAvailable: true})
+		if (streamData === "error") {
+			this.setState({showAlert: true})
+		} else {
+			this.setState({stream: streamData, streamAvailable: true})
+		}
 	} 
 	// callback function for getting the audioURL and fileName of recorded clip from Recorder component
 	getRecordedAudioURLAndFileName(audioURL, fileName) {
@@ -46,6 +50,9 @@ class App extends Component {
 			    	{' '}Record your voice
 			    </Navbar.Brand>
 			  </Navbar>
+			  <Alert variant="danger" show={this.state.showAlert}>
+			  	It wasn't possible to access your microphone. Please reload this page and start again.
+		  	</Alert>
 				<Container className="main-container">
 				  <h1>Record audio and Download it to your computer</h1>
 				  <p>

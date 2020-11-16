@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button } from 'react-bootstrap/';
 import PropTypes from 'prop-types'
 
 
@@ -18,7 +18,9 @@ class MicrophoneAccess extends Component {
       this.props.getStreamData(stream)
     }
     catch {
-      console.log("It wasn't possible to access your microphone.")
+      return (
+        this.props.getStreamData("error")
+      )
     }
   }
 

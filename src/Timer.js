@@ -29,7 +29,7 @@ class Timer extends Component {
 			console.log("after date start")
 			this.timerID = setInterval(
 	      () => this.refreshTimer(),
-	      1000
+	      980
 	    )
 	    console.log("after timer ID")
 		}
