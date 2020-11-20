@@ -29,7 +29,7 @@ describe('MicrophoneAccess', () => {
     wrapper = mount(<MicrophoneAccess getStreamData={mockGetStreamData} />);
 
     const mockMediaDevices = {
-      getUserMedia: jest.fn().mockImplementation(() => {id: "{dd3c9540-10e1-0a42-9f03-732c37661620}"})
+      getUserMedia: jest.fn()
     }
 
     global.navigator.mediaDevices = mockMediaDevices;
@@ -42,17 +42,3 @@ describe('MicrophoneAccess', () => {
     expect(mockGetStreamData.mock.calls.length).toBe(1);
   })
 });
-
-
-// MediaStream
-// ​
-// active: true
-// ​
-// id: "{dd3c9540-10e1-0a42-9f03-732c37661620}"
-// ​
-// onaddtrack: null
-// ​
-// onremovetrack: null
-// ​
-// <prototype>: MediaStreamPrototype { getAudioTracks: getAudioTracks(), getVideoTracks: getVideoTracks(), getTracks: getTracks(), … }
-// MicrophoneAccess.js:18

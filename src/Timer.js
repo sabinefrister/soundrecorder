@@ -10,28 +10,43 @@ class Timer extends Component {
 			dateStart: null,
 		}
 		this.refreshTimer = this.refreshTimer.bind(this)
-		};
+		this.displayDuration = this.displayDuration.bind(this)
+	};
+
+	displayDuration(elapsedTime) {
+		let duration = Math.floor(elapsedTime/1000)
+		let seconds = duration % 60;
+		let minutes = Math.floor(duration/60) % 60
+		let hours = Math.floor(duration/60/60)
+
+		// add zero if single digit
+		if (seconds.toString().length === 1) {
+			seconds = `0${seconds}`
+		}
+		if (minutes.toString().length === 1) {
+			minutes = `0${minutes}`
+		}
+		if (hours.toString().length === 1) {
+			hours = `0${hours}`
+		}
+		return `${hours}:${minutes}:${seconds}`
+	}
 
 	refreshTimer() {
-		console.log("refresh Timer")
-		let dateNow = Date.now()
+		let dateNow = new Date()
 		let elapsedTime = dateNow - this.state.dateStart;
-		let duration = new Date()
-		duration.setHours(0, 0, Math.floor(elapsedTime/1000))
+		let duration = this.displayDuration(elapsedTime)
 		this.setState({duration: duration});
 	}
 
 	componentDidUpdate() {
-		console.log("before if")
 		if (this.props.timerStarted && this.state.dateStart === null) {
-			console.log("after if")
-			this.setState({dateStart: Date.now()})
-			console.log("after date start")
+			let dateStart = new Date()
+			this.setState({dateStart: dateStart})
 			this.timerID = setInterval(
 	      () => this.refreshTimer(),
 	      980
 	    )
-	    console.log("after timer ID")
 		}
 	}
 
@@ -40,11 +55,10 @@ class Timer extends Component {
   }
 
 	render() {
-		console.log("RENDER: duration " + this.state.duration + " timerstarted " + this.props.timerStarted)
     return (
     	<div className="timer">
 				<h3>
-					{this.state.duration ? this.state.duration.toLocaleTimeString() : "00:00:00"}
+					{this.state.duration ? this.state.duration : "00:00:00"}
 				</h3>
 			</div>
     );
