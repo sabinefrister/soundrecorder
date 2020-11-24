@@ -4,14 +4,16 @@ import Recorder from '../Recorder'
 
 
 function shallowComponent() {
-  const mockSetNewRecording = jest.fn();
-  return shallow(<Recorder stream={this.state.stream} 
-                    getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName} />);
+  const mockGetRecordedAudioURLAndFileName = jest.fn();
+  const stream = {}
+  return shallow(<Recorder stream={stream} 
+                  getRecordedAudioURLAndFileName={mockGetRecordedAudioURLAndFileName} />);
 }
 
 function mountComponent() {
   const mockSetNewRecording = jest.fn();
-  return mount(<Recorder setNewRecording={mockSetNewRecording} />);
+  return mount(<Recorder stream={stream} 
+                getRecordedAudioURLAndFileName={mockGetRecordedAudioURLAndFileName} />);
 }
 
 
@@ -22,59 +24,28 @@ describe('Recorder', () => {
 		wrapper.unmount();
 	})
 
-  xtest('renders Recorder component with button', () => {
+  xtest('renders Recorder component with record and stop button and the timer', () => {
     wrapper = shallowComponent()
-    expect(wrapper.find('Button.new-recording').length).toBe(1);
-    expect(wrapper.find('Modal.new-recording').props().show).toBe(false);
+
+  //   let MockAudioContext = (function() {
+  //     function AudioContext() {
+  //       console.log("inside Mock")
+  //       this.destination = new AudioDestinationNode();
+  //       this.listener = new AudioListener();
+  //     }
+
+  //    AudioContext.prototype.createMediaStreamSource = function() {
+  //     return new MediaStreamAudioSourceNode();
+  //   };
+
+  //    AudioContext.prototype.createGain = function() {
+  //     return new GainNode();
+  //   };
+  // });
+
+    expect(wrapper.find('.Button.recordButton').length).toBe(1);
+    expect(wrapper.find('.Button.stopButton').length).toBe(1);
+    expect(wrapper.find('Timer').length).toBe(1);
   })
 
-  xtest('renders Recorder component with all necessary props', () => {
-    wrapper = shallowComponent()
-    expect(wrapper.instance().props.setNewRecording).toBeDefined()
-  })
-
-  xtest('renders Recorder component with modal after button click', () => {
-    wrapper = mountComponent()
-
-
-    expect(wrapper.find('Modal.new-recording').props().show).toBe(true);
-  })
-
-  xtest('renders modal and closes it with cancel', () => {
-    wrapper = mountComponent()
-
-
-    expect(wrapper.find('Modal.new-recording').props().show).toBe(true);
-
-    wrapper
-      .find('Button.modal-button-cancel')
-      .simulate('click');
-
-    expect(wrapper.find('Modal.new-recording').props().show).toBe(false);
-  })
-
-  xtest('renders modal and closes it with x-button', () => {
-    wrapper = mountComponent()
-
-
-    wrapper
-      .find('CloseButton')
-      .simulate('click');
-
-    expect(wrapper.find('Modal.new-recording').props().show).toBe(false);
-  })
-
-  xtest('renders modal and closes it with ok-button and call function', () => {
-    const mockSetNewRecording = jest.fn();
-    wrapper = mount(<Recorder setNewRecording={mockSetNewRecording} />);
-
-    
-
-    wrapper
-      .find('Button.modal-button-ok')
-      .simulate('click');
-
-    expect(wrapper.find('Modal.new-recording').props().show).toBe(false);
-    expect(mockSetNewRecording).toHaveBeenCalled();
-  })
 });
