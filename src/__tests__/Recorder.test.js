@@ -25,6 +25,21 @@ class MockMediaRecorder {
   MediaRecorder() {
     return jest.fn()
   }
+  start() {
+    return jest.fn()
+  }  
+  stop() {
+    return jest.fn()
+  }
+  onStop() {
+    return jest.fn()
+  }
+  onDataAvailable() {
+    return jest.fn()
+  }
+  onError() {
+    return jest.fn()
+  }
 }
 
 window.AudioContext = MockAudioContext;
@@ -32,15 +47,20 @@ window.MediaRecorder = MockMediaRecorder;
 
 function shallowComponent() {
   const mockGetRecordedAudioURLAndFileName = jest.fn();
+  const mockGetErrorFromRecorder = jest.fn();
   const stream = {stream: "abc"}
   return shallow(<Recorder stream={stream} 
-                  getRecordedAudioURLAndFileName={mockGetRecordedAudioURLAndFileName} />);
+                  getRecordedAudioURLAndFileName={mockGetRecordedAudioURLAndFileName}
+                  mockGetErrorFromRecorder={mockGetErrorFromRecorder} />);
 }
 
 function mountComponent() {
-  const mockSetNewRecording = jest.fn();
+  const mockGetRecordedAudioURLAndFileName = jest.fn();
+  const mockGetErrorFromRecorder = jest.fn();
+  const stream = {stream: "abc"}
   return mount(<Recorder stream={stream} 
-                getRecordedAudioURLAndFileName={mockGetRecordedAudioURLAndFileName} />);
+                getRecordedAudioURLAndFileName={mockGetRecordedAudioURLAndFileName}
+                mockGetErrorFromRecorder={mockGetErrorFromRecorder} />);
 }
 
 
@@ -66,17 +86,52 @@ describe('Recorder', () => {
     expect(wrapper.instance().props.getRecordedAudioURLAndFileName).toBeDefined();
   })
 
-  xtest('state change, when clicking on recordButton', () => {
+  test('renders expected state when mounting component', () => {
     wrapper = shallowComponent()
 
-    expect(wrapper.instance().props.stream).toEqual({stream: "abc"});
-    expect(wrapper.instance().props.getRecordedAudioURLAndFileName).toBeDefined();
+    expect(wrapper.instance().state).toEqual({
+      timerStarted: false,
+      idRecordButton: "",
+      enableRecordButton: true,
+      enableStopButton: true
+    });    
   })
 
-  xtest('state change, when clicking on stopButton', () => {
-    wrapper = shallowComponent()
+  test('state change, when clicking on recordButton', () => {
+    wrapper = mountComponent()
 
-    expect(wrapper.instance().props.stream).toEqual({stream: "abc"});
-    expect(wrapper.instance().props.getRecordedAudioURLAndFileName).toBeDefined();
+    wrapper
+    .find('Button.recordButton')
+    .simulate('click');    
+
+    expect(wrapper.instance().state).toEqual({
+      timerStarted: true, 
+      idRecordButton: "record", 
+      enableStopButton: true, 
+      enableRecordButton: false
+    });
+
+    expect(wrapper.find('Button.recordButton').props().disabled).toEqual(true);
+    expect(wrapper.find('Button.stopButton').props().disabled).toEqual(false);
+    // expect(window.MediaRecorder.start.mock.calls.length).toBe(1);
+  })
+
+  test('state change, when clicking on stopButton', () => {
+    wrapper = mountComponent()
+
+    wrapper
+    .find('Button.stopButton')
+    .simulate('click');
+    
+    expect(wrapper.instance().state).toEqual({
+      timerStarted: false, 
+      idRecordButton: "",
+      enableStopButton: false, 
+      enableRecordButton: true
+    });
+
+    expect(wrapper.find('Button.recordButton').props().disabled).toEqual(false);
+    expect(wrapper.find('Button.stopButton').props().disabled).toEqual(true);
+    // expect(window.MediaRecorder.stop.mock.calls.length).toBe(1);
   })
 });
