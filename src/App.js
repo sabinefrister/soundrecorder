@@ -18,16 +18,19 @@ class App extends Component {
 			streamAvailable: false,
 			fileName: null,
 			showAlert: false,
+			alertMessage: ""
 		};
 		this.getStreamData = this.getStreamData.bind(this);
 		this.getRecordedAudioURLAndFileName = this.getRecordedAudioURLAndFileName.bind(this);
+		this.getErrorFromRecorder = this.getErrorFromRecorder.bind(this);
 		this.setNewRecording = this.setNewRecording.bind(this);
 	}
   
 	// callback function for getting the stream of MicrophoneAccess component
 	getStreamData(streamData) {
 		if (streamData === "error") {
-			this.setState({showAlert: true})
+			let microphoneAccessAlert = "It wasn't possible to access your microphone. Please reload this page and start again."
+			this.setState({showAlert: true, alertMessage: microphoneAccessAlert})
 		} else {
 			this.setState({stream: streamData, streamAvailable: true})
 		}
@@ -35,6 +38,11 @@ class App extends Component {
 	// callback function for getting the audioURL and fileName of recorded clip from Recorder component
 	getRecordedAudioURLAndFileName(audioURL, fileName) {
 		this.setState({audioURL: audioURL, fileName: fileName})
+	}
+
+	getErrorFromRecorder(error) {
+		let recorderAlert = `It wasn't possible to start a recording. ${error}`
+		this.setState({showAlert: true, alertMessage: recorderAlert})
 	}
 
 	setNewRecording() {
@@ -51,7 +59,7 @@ class App extends Component {
 			    </Navbar.Brand>
 			  </Navbar>
 			  <Alert variant="danger" show={this.state.showAlert}>
-			  	It wasn't possible to access your microphone. Please reload this page and start again.
+			  	{this.state.alertMessage}
 		  	</Alert>
 				<Container className="main-container">
 				  <h1>Record audio and Download it to your computer</h1>
@@ -75,6 +83,7 @@ class App extends Component {
 									<Recorder 
 										stream={this.state.stream} 
 										getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}
+										getErrorFromRecorder={this.getErrorFromRecorder}
 									/>
 								</Col>
 							</Row>

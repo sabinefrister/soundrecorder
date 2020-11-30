@@ -23,7 +23,6 @@ describe('DownloadButton', () => {
   test('renders DownloadButton component with all necessary props', () => {
     expect(wrapper.instance().props.fileName).toEqual("Test123.wav");
     expect(wrapper.instance().props.audioURL).toEqual("https://audioURL");
-    expect(wrapper.find('Button').props().size).toEqual("lg");
     expect(wrapper.find('Button').props().href).toEqual("https://audioURL");
     expect(wrapper.find('Button').props().download).toEqual("Test123.wav");
   })

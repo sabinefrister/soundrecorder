@@ -38,7 +38,9 @@ class Recorder extends Component {
 		this.mediaRecorder.onstop = function(event) {
 			var fileName = prompt("Please enter a name for your sound clip.", 
 				"Audio 1")
-
+			if (fileName === null) {
+				fileName = "Audio 1"
+			}
 	  	var blob = new Blob(chunks, {'type' : 'audio/wave'});
 	  	// reset chunks for a new file 
 	  	chunks = [];
@@ -49,6 +51,9 @@ class Recorder extends Component {
 		this.mediaRecorder.ondataavailable = function(event) {
 			chunks.push(event.data);
 		}
+		this.mediaRecorder.onError = function(event) {
+			this.props.getErrorFromRecorder(event.error.name)
+		}
   }
 
   componentWillUnmount() {
@@ -56,17 +61,23 @@ class Recorder extends Component {
   }
 
   startRecording() {
-  	this.setState({timerStarted: true})
-		this.setState({idRecordButton: "record"})
-		this.setState({enableStopButton: true, enableRecordButton: false})
+  	this.setState({
+  		timerStarted: true, 
+  		idRecordButton: "record", 
+  		enableStopButton: true, 
+  		enableRecordButton: false
+  	})
   	this.mediaRecorder.start();
   }
 
   stopRecording() {
   	this.mediaRecorder.stop();
-  	this.setState({timerStarted: false})
-  	this.setState({idRecordButton: ""});
-		this.setState({enableStopButton: false, enableRecordButton: true})
+  	this.setState({
+  		timerStarted: false, 
+  		idRecordButton: "",
+  		enableStopButton: false, 
+  		enableRecordButton: true
+  	})
   }  
 
   render() {

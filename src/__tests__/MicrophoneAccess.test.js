@@ -21,7 +21,7 @@ describe('MicrophoneAccess', () => {
 
   test('renders MicrophoneAccess component with all necessary props', () => {
     wrapper = shallowComponent()
-    expect(wrapper.find('Button').props().size).toEqual("lg");
+    expect(wrapper.instance().props.getStreamData).toBeDefined();
   })
 
   test('should call getStreamData after button click', async () => {
