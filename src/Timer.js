@@ -45,7 +45,7 @@ class Timer extends Component {
 			this.setState({dateStart: dateStart})
 			this.timerID = setInterval(
 	      () => this.refreshTimer(),
-	      980
+	      500
 	    )
 		}
 	}
