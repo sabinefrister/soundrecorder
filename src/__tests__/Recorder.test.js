@@ -4,9 +4,6 @@ import Recorder from '../Recorder'
 
 
 class MockAudioContext {
-  AudioContext() {
-    return jest.fn()
-  }
   createMediaStreamSource() {
     function connect(gain) {
       return gain
@@ -21,34 +18,12 @@ class MockAudioContext {
   }
 }
 
-class MockMediaRecorder {
-  MediaRecorder() {
-    return jest.fn()
-  }
-  start() {
-    return jest.fn()
-  }  
-  stop() {
-    return jest.fn()
-  }
-  onStop() {
-    return jest.fn()
-  }
-  onDataAvailable() {
-    return jest.fn()
-  }
-  onError() {
-    return jest.fn()
-  }
-}
-
 window.AudioContext = MockAudioContext;
-window.MediaRecorder = MockMediaRecorder;
 
 function shallowComponent() {
   const mockGetRecordedAudioURLAndFileName = jest.fn();
   const mockGetErrorFromRecorder = jest.fn();
-  const stream = {stream: "abc"}
+  const stream = {stream: "abc"};
   return shallow(<Recorder stream={stream} 
                   getRecordedAudioURLAndFileName={mockGetRecordedAudioURLAndFileName}
                   mockGetErrorFromRecorder={mockGetErrorFromRecorder} />);
@@ -57,7 +32,7 @@ function shallowComponent() {
 function mountComponent() {
   const mockGetRecordedAudioURLAndFileName = jest.fn();
   const mockGetErrorFromRecorder = jest.fn();
-  const stream = {stream: "abc"}
+  const stream = {stream: "abc"};
   return mount(<Recorder stream={stream} 
                 getRecordedAudioURLAndFileName={mockGetRecordedAudioURLAndFileName}
                 mockGetErrorFromRecorder={mockGetErrorFromRecorder} />);
@@ -69,9 +44,11 @@ describe('Recorder', () => {
 
 	afterEach(() => {
 		wrapper.unmount();
+    window.MediaRecorder.mockClear()
 	})
 
   test('renders Recorder component with record and stop button and the timer', () => {
+    window.MediaRecorder = jest.fn()
     wrapper = shallowComponent()
 
     expect(wrapper.find('Button.recordButton').length).toBe(1);
@@ -80,6 +57,7 @@ describe('Recorder', () => {
   })  
 
   test('renders Recorder component with all necessary props', () => {
+    window.MediaRecorder = jest.fn()
     wrapper = shallowComponent()
 
     expect(wrapper.instance().props.stream).toEqual({stream: "abc"});
@@ -87,6 +65,7 @@ describe('Recorder', () => {
   })
 
   test('renders expected state when mounting component', () => {
+    window.MediaRecorder = jest.fn()
     wrapper = shallowComponent()
 
     expect(wrapper.instance().state).toEqual({
@@ -98,6 +77,20 @@ describe('Recorder', () => {
   })
 
   test('state change, when clicking on recordButton', () => {
+    const mockStart = jest.fn()
+    const mockStop = jest.fn()
+
+    window.MediaRecorder = jest.fn()
+    window.MediaRecorder.mockImplementation(function() {
+      return {
+        start: mockStart,
+        stop: mockStop,
+        onStop: jest.fn(),
+        onDataAvailable: jest.fn(),
+        onError: jest.fn(),
+      }
+    })
+
     wrapper = mountComponent()
 
     wrapper
@@ -113,10 +106,25 @@ describe('Recorder', () => {
 
     expect(wrapper.find('Button.recordButton').props().disabled).toEqual(true);
     expect(wrapper.find('Button.stopButton').props().disabled).toEqual(false);
-    // expect(window.MediaRecorder.start.mock.calls.length).toBe(1);
+    expect(mockStart.mock.calls.length).toBe(1);
+    expect(mockStop.mock.calls.length).toBe(0);
   })
 
   test('state change, when clicking on stopButton', () => {
+    const mockStart = jest.fn()
+    const mockStop = jest.fn()
+
+    window.MediaRecorder = jest.fn()
+    window.MediaRecorder.mockImplementation(function() {
+      return {
+        start: mockStart,
+        stop: mockStop,
+        onStop: jest.fn(),
+        onDataAvailable: jest.fn(),
+        onError: jest.fn(),
+      }
+    })
+
     wrapper = mountComponent()
 
     wrapper
@@ -132,6 +140,7 @@ describe('Recorder', () => {
 
     expect(wrapper.find('Button.recordButton').props().disabled).toEqual(false);
     expect(wrapper.find('Button.stopButton').props().disabled).toEqual(true);
-    // expect(window.MediaRecorder.stop.mock.calls.length).toBe(1);
+    expect(mockStart.mock.calls.length).toBe(0);
+    expect(mockStop.mock.calls.length).toBe(1);
   })
 });
