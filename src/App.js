@@ -68,10 +68,11 @@ class App extends Component {
 			  	{this.state.alertMessage}
 		  	</Alert>
 				<Container className="main-container">
-				  <h1>Record audio and Download it to your computer</h1>
+				  <h1>Record Audio and Download it to Your Computer</h1>
 				  <p>
 				    You can record anything you like with this simple sound recorder.
-				    After naming your file, you can download it to your computer.
+				    After naming your file, you can download it to your computer. 
+				    The container of the file is mp4 with opus codex.
 				  </p>
 				  <Jumbotron>
 						{!this.state.streamAvailable && (
