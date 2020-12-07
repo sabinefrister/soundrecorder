@@ -41,11 +41,11 @@ class Recorder extends Component {
 			if (fileName === null) {
 				fileName = "Audio 1"
 			}
-	  	var blob = new Blob(chunks, {'type' : 'audio/wave'});
+	  	var blob = new Blob(chunks, {'type' : 'audio/mp4'});
 	  	// reset chunks for a new file 
 	  	chunks = [];
 	  	var audioURL = URL.createObjectURL(blob);
-	  	this.props.getRecordedAudioURLAndFileName(audioURL, `${fileName}.wav`);
+	  	this.props.getRecordedAudioURLAndFileName(audioURL, `${fileName}.mp4`);
 		}.bind(this);
 
 		this.mediaRecorder.ondataavailable = function(event) {
