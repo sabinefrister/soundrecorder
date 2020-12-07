@@ -26,7 +26,7 @@ describe('AudioPlayer', () => {
   })
 
   test('renders App with AudioPlayer', () => {
-  	wrapper.setState({ audioURL: "abc", fileName: "fileName",  });
+  	wrapper.setState({ audioURL: "abc", fileName: "fileName"});
     expect(wrapper.find('AudioPlayer').length).toBe(1); 
     expect(wrapper.find('DownloadButton').length).toBe(1); 
     expect(wrapper.find('NewRecordingButton').length).toBe(1); 

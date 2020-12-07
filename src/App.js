@@ -26,7 +26,11 @@ class App extends Component {
 		this.getErrorDueToMediaRecorder = this.getErrorDueToMediaRecorder.bind(this);
 		this.setNewRecording = this.setNewRecording.bind(this);
 	}
-  
+	
+  componentDidMount(){
+    document.title = "Simple Sound Recorder"
+  }
+
 	// callback function for getting the stream of MicrophoneAccess component
 	getStreamData(streamData) {
 		if (streamData === "error") {
