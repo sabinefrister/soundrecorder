@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/soundrecorder/static/css/main.56b6bbc2.chunk.css",
-    "main.js": "/soundrecorder/static/js/main.02fbcbb0.chunk.js",
-    "main.js.map": "/soundrecorder/static/js/main.02fbcbb0.chunk.js.map",
+    "main.js": "/soundrecorder/static/js/main.ac3f0420.chunk.js",
+    "main.js.map": "/soundrecorder/static/js/main.ac3f0420.chunk.js.map",
     "runtime-main.js": "/soundrecorder/static/js/runtime-main.4833e709.js",
     "runtime-main.js.map": "/soundrecorder/static/js/runtime-main.4833e709.js.map",
     "static/css/2.a7573f04.chunk.css": "/soundrecorder/static/css/2.a7573f04.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.a7573f04.chunk.css",
     "static/js/2.6e02f23b.chunk.js",
     "static/css/main.56b6bbc2.chunk.css",
-    "static/js/main.02fbcbb0.chunk.js"
+    "static/js/main.ac3f0420.chunk.js"
   ]
 }
