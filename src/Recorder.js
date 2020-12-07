@@ -30,8 +30,15 @@ class Recorder extends Component {
 		this.gainNode.gain.value = this.initialVol;
 		this.source.connect(this.gainNode);
 
-		// Creating a mediaRecorder
-		this.mediaRecorder = new MediaRecorder(this.props.stream);
+		try {
+			// Creating a mediaRecorder
+			this.mediaRecorder = new MediaRecorder(this.props.stream);
+		} catch (error) {
+			// catch error if Media Recorder API is not supported
+			this.props.getErrorDueToMediaRecorder(error)
+			return;
+		}
+		
 		// setting up recorded audio snippets
 		var chunks = [];
 

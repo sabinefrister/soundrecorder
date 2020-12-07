@@ -23,6 +23,7 @@ class App extends Component {
 		this.getStreamData = this.getStreamData.bind(this);
 		this.getRecordedAudioURLAndFileName = this.getRecordedAudioURLAndFileName.bind(this);
 		this.getErrorFromRecorder = this.getErrorFromRecorder.bind(this);
+		this.getErrorDueToMediaRecorder = this.getErrorDueToMediaRecorder.bind(this);
 		this.setNewRecording = this.setNewRecording.bind(this);
 	}
   
@@ -43,6 +44,11 @@ class App extends Component {
 	getErrorFromRecorder(error) {
 		let recorderAlert = `It wasn't possible to start a recording. ${error}`
 		this.setState({showAlert: true, alertMessage: recorderAlert})
+	}
+
+	getErrorDueToMediaRecorder(error) {
+		let mediaRecorderAlert = `The sound recorder is not supported by Safari and Internet Explorer. Please use another Browser. ${error}`
+		this.setState({showAlert: true, alertMessage: mediaRecorderAlert, streamAvailable: false})
 	}
 
 	setNewRecording() {
@@ -84,6 +90,7 @@ class App extends Component {
 										stream={this.state.stream} 
 										getRecordedAudioURLAndFileName={this.getRecordedAudioURLAndFileName}
 										getErrorFromRecorder={this.getErrorFromRecorder}
+										getErrorDueToMediaRecorder={this.getErrorDueToMediaRecorder}
 									/>
 								</Col>
 							</Row>
