@@ -102,7 +102,11 @@ audio {
 #stop:disabled {
   opacity: 1;
   background-color: #AAABB8;
+}
 
+.alert {
+  width: 80%;
+  margin: 0 auto;
 }
 
 @keyframes pulse-record {

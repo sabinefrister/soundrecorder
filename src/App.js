@@ -26,7 +26,7 @@ class App extends Component {
 		this.getErrorDueToMediaRecorder = this.getErrorDueToMediaRecorder.bind(this);
 		this.setNewRecording = this.setNewRecording.bind(this);
 	}
-	
+
   componentDidMount(){
     document.title = "Simple Sound Recorder"
   }
@@ -46,12 +46,13 @@ class App extends Component {
 	}
 
 	getErrorFromRecorder(error) {
-		let recorderAlert = `It wasn't possible to start a recording. ${error}`
+		let recorderAlert = `It wasn't possible to start a recording. - ${error}`
 		this.setState({showAlert: true, alertMessage: recorderAlert})
 	}
 
 	getErrorDueToMediaRecorder(error) {
-		let mediaRecorderAlert = `The sound recorder is not supported by Safari and Internet Explorer. Please use another Browser. ${error}`
+		let mediaRecorderAlert = `The sound recorder is not supported by Safari and Internet Explorer. 
+		Please use another Browser. - ${error}`
 		this.setState({showAlert: true, alertMessage: mediaRecorderAlert, streamAvailable: false})
 	}
 
