@@ -78,13 +78,15 @@ class Recorder extends Component {
   }
 
   stopRecording() {
-  	this.mediaRecorder.stop();
-  	this.setState({
-  		timerStarted: false, 
-  		idRecordButton: "",
-  		enableStopButton: false, 
-  		enableRecordButton: true
-  	})
+  	if (this.state.timerStarted) {
+	  	this.mediaRecorder.stop();
+	  	this.setState({
+	  		timerStarted: false, 
+	  		idRecordButton: "",
+	  		enableStopButton: false, 
+	  		enableRecordButton: true
+	  	})
+  	}
   }  
 
   render() {
