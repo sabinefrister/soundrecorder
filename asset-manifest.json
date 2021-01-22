@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/soundrecorder/static/css/main.56b6bbc2.chunk.css",
+    "main.css": "/soundrecorder/static/css/main.2562a24b.chunk.css",
     "main.js": "/soundrecorder/static/js/main.ac3f0420.chunk.js",
     "main.js.map": "/soundrecorder/static/js/main.ac3f0420.chunk.js.map",
     "runtime-main.js": "/soundrecorder/static/js/runtime-main.4833e709.js",
@@ -10,14 +10,14 @@
     "static/js/2.6e02f23b.chunk.js.map": "/soundrecorder/static/js/2.6e02f23b.chunk.js.map",
     "index.html": "/soundrecorder/index.html",
     "static/css/2.a7573f04.chunk.css.map": "/soundrecorder/static/css/2.a7573f04.chunk.css.map",
-    "static/css/main.56b6bbc2.chunk.css.map": "/soundrecorder/static/css/main.56b6bbc2.chunk.css.map",
+    "static/css/main.2562a24b.chunk.css.map": "/soundrecorder/static/css/main.2562a24b.chunk.css.map",
     "static/js/2.6e02f23b.chunk.js.LICENSE.txt": "/soundrecorder/static/js/2.6e02f23b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4833e709.js",
     "static/css/2.a7573f04.chunk.css",
     "static/js/2.6e02f23b.chunk.js",
-    "static/css/main.56b6bbc2.chunk.css",
+    "static/css/main.2562a24b.chunk.css",
     "static/js/main.ac3f0420.chunk.js"
   ]
 }
