@@ -16,19 +16,22 @@ class Recorder extends Component {
 
 		this.startRecording = this.startRecording.bind(this);
 		this.stopRecording = this.stopRecording.bind(this);
+		this.handleMediaRecorderStop = this.handleMediaRecorderStop.bind(this);
+		this.handleMediaRecorderDataAvailable = this.handleMediaRecorderDataAvailable.bind(this);
+		this.handleMediaRecorderError = this.handleMediaRecorderError.bind(this);
   }
 
   componentDidMount() {
-    this.audioContext = new (window.AudioContext ||
+    let audioContext = new (window.AudioContext ||
       window.webkitAudioContext)();
-    this.source = this.audioContext.createMediaStreamSource(this.props.stream);
+    this.source = audioContext.createMediaStreamSource(this.props.stream);
     
     // Connect different audio modules/audio graph nodes together
     // Setting up gain
-		this.gainNode = this.audioContext.createGain();
-		this.initialVol = 0.75;
-		this.gainNode.gain.value = this.initialVol;
-		this.source.connect(this.gainNode);
+		let gainNode = audioContext.createGain();
+		let initialVol = 0.75;
+		gainNode.gain.value = initialVol;
+		this.source.connect(gainNode);
 
 		try {
 			// Creating a mediaRecorder
@@ -40,27 +43,31 @@ class Recorder extends Component {
 		}
 		
 		// setting up recorded audio snippets
-		var chunks = [];
+		this.chunks = [];
+		this.mediaRecorder.onstop = this.handleMediaRecorderStop;
+		this.mediaRecorder.ondataavailable = this.handleMediaRecorderDataAvailable;
+		this.mediaRecorder.onError = this.handleMediaRecorderError;
+  }
 
-		this.mediaRecorder.onstop = function(event) {
-			var fileName = prompt("Please enter a name for your sound clip.", 
+  handleMediaRecorderStop(event) {
+  	var fileName = prompt("Please enter a name for your sound clip.", 
 				"Audio 1")
-			if (fileName === null) {
-				fileName = "Audio 1"
-			}
-	  	var blob = new Blob(chunks, {'type' : 'audio/mp4'});
-	  	// reset chunks for a new file 
-	  	chunks = [];
-	  	var audioURL = URL.createObjectURL(blob);
-	  	this.props.getRecordedAudioURLAndFileName(audioURL, `${fileName}.mp4`);
-		}.bind(this);
+		if (fileName === null) {
+			fileName = "Audio 1"
+		}
+  	var blob = new Blob(this.chunks, {'type' : 'audio/mp4'});
+  	// reset chunks for a new file 
+  	this.chunks = [];
+  	var audioURL = URL.createObjectURL(blob);
+  	this.props.getRecordedAudioURLAndFileName(audioURL, `${fileName}.mp4`);
+  }
 
-		this.mediaRecorder.ondataavailable = function(event) {
-			chunks.push(event.data);
-		}
-		this.mediaRecorder.onError = function(event) {
-			this.props.getErrorFromRecorder(event.error.name)
-		}
+  handleMediaRecorderDataAvailable(event) {
+  	this.chunks.push(event.data);
+  }
+
+  handleMediaRecorderError(event) {
+  	this.props.getErrorFromRecorder(event.error.name);
   }
 
   componentWillUnmount() {
